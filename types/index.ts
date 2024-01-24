@@ -9,3 +9,8 @@ export interface CustomButtonProps {
   rightIcon?: string;
   isDisabled?: boolean;
 }
+
+export interface SearchTickerProps {
+  ticker: string;
+  setTicker: (ticker: string) => void;
+}
