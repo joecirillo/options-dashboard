@@ -1,4 +1,4 @@
-export const manufacturers = [
+export const tickers = [
   "AAPL",
   "GOOGL",
   "MSFT",

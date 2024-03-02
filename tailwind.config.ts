@@ -17,7 +17,7 @@ module.exports = {
           DEFAULT: "#398378",
           100: "#F5F8FF",
         },
-        "secondary-orange": "#f79761",
+        "primary-red": "#833944",
         "light-white": {
           DEFAULT: "rgba(59,60,152,0.03)",
           100: "rgba(59,60,152,0.02)",
