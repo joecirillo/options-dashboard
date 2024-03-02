@@ -38,11 +38,11 @@
 /* END: General styles */
 
 /* START: Hero styles */
-.hero {
+.banner {
   @apply flex xl:flex-row flex-col gap-5 relative z-0 max-w-[1440px] mx-auto;
 }
 
-.hero__title {
+.banner_title {
   @apply 2xl:text-[72px] sm:text-[64px] text-[50px] font-extrabold;
 }
 

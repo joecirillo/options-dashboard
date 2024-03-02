@@ -1,9 +1,37 @@
-import { Banner } from "@/components";
+import { Banner, OptionCard } from "@/components";
 import Image from "next/image";
 import { SearchBar } from "@/components";
 import { CustomFilter } from "@/components";
+import { OptionExpiration } from "@/types";
+import {
+  decodeOptionsData,
+  decodeLookupCompany,
+  getLookupCompany,
+  getOptionsChain,
+  decodeQuotes,
+} from "@/utils";
 
-export default function Home() {
+export default async function Home({ searchParams }) {
+  console.log(searchParams.expiration);
+  console.log(searchParams.ticker);
+  const optionsChain = await decodeOptionsData({
+    stock: searchParams.ticker || "AAPL",
+    expiration: searchParams.expiration || "2024-04-19",
+  });
+
+  const lookupCompany = await getLookupCompany();
+  const lookup = await decodeLookupCompany();
+  const stockPrice = await decodeQuotes();
+  // const clock = await fetchClock();
+
+  // console.log(decodeLookupCompany());
+
+  const isDataEmpty =
+    typeof optionsChain != "object" || Object.keys(optionsChain).length === 0;
+
+  // console.log("Companies" + lookupCompany);
+  // console.log(clock);
+
   return (
     <main className="overflow-hidden">
       <Banner />
@@ -17,10 +45,24 @@ export default function Home() {
           <SearchBar />
           <div className="home__filter-container">
             <CustomFilter title="ticker" />
-            <CustomFilter title="ticker" />
           </div>
         </div>
       </div>
+
+      {!isDataEmpty ? (
+        <section>
+          <div className="home__cars-wrapper">
+            {optionsChain?.map((option: any) => (
+              <OptionCard option={option} stockPrice={parseInt(stockPrice)} />
+            ))}
+          </div>
+        </section>
+      ) : (
+        <div className="home__error-container">
+          <h2 className="text-black text-xl font-bold">Oops, no results</h2>
+          <p>{lookupCompany?.message}</p>
+        </div>
+      )}
     </main>
   );
 }
