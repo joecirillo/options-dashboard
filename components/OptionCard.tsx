@@ -49,17 +49,15 @@ const OptionCard = ({ option, stockPrice }: OptionCardProps) => {
       </div>
       <p className="mt-6">
         <span className="self-end text-[32px] font-extrabold">
-          ${last || "0.00"}{" "}
+          ${last || ask}{" "}
         </span>
-        <span className="self-end text-[14px] font-medium">
-          last price {option_type}
-        </span>
+        <span className="self-end text-[14px] font-medium">{option_type}</span>
       </p>
 
       <div className="relative w-full h-60 mt-6 flex justify-center items-center">
         <OptionPayoffDiagram
           strikePrice={strike}
-          premium={last}
+          premium={last || ask}
           option_type={option_type}
           isLong={isLong}
         />
@@ -90,11 +88,21 @@ const OptionCard = ({ option, stockPrice }: OptionCardProps) => {
             <p className="text-[14px] leading-[17px]">
               {option_type === "call"
                 ? isLong
-                  ? `$${(Math.max(stockPrice - strike, 0) - last).toFixed(2)}`
-                  : `$${(Math.max(strike - stockPrice, 0) + last).toFixed(2)}`
+                  ? `$${Math.max(
+                      stockPrice - strike - (last ?? ask),
+                      0
+                    ).toFixed(2)}`
+                  : `$${Math.max(
+                      strike - stockPrice + (last ?? ask),
+                      0
+                    ).toFixed(2)}`
                 : isLong
-                ? `$${(Math.max(strike - stockPrice, 0) - last).toFixed(2)}`
-                : `$${(Math.max(stockPrice - strike, 0) + last).toFixed(2)}`}
+                ? `$${Math.max(strike - stockPrice - (last ?? ask), 0).toFixed(
+                    2
+                  )}`
+                : `$${Math.max(stockPrice - strike + (last ?? ask), 0).toFixed(
+                    2
+                  )}`}
             </p>
           </div>
         </div>

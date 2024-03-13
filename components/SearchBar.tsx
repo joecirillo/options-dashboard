@@ -41,7 +41,7 @@ const SearchBar = () => {
       searchParams.set("ticker", ticker);
     }
 
-    if (ticker) {
+    if (expiration) {
       searchParams.set("expiration", expiration);
     } else {
       searchParams.set("expiration", expiration);
@@ -76,6 +76,7 @@ const SearchBar = () => {
           placeholder="Enter an expiration date"
           className="searchbar__input"
         />
+
         <SearchButton otherClasses="sm:hidden" />
       </div>
       <SearchButton otherClasses="max-sm:hidden" />

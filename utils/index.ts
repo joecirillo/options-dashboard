@@ -63,18 +63,24 @@ export async function getQuotes(stock: string) {
   return result;
 }
 
-export async function decodeQuotes() {
-  const company = await getQuotes("GOOGL");
+export async function decodeQuotes(stock: string) {
+  console.log("Hi" + stock);
+  const company = await getQuotes(stock);
 
   const quote: string = company.quotes.quote.last;
-  console.log(quote);
+  console.log("quote " + quote);
   return quote;
 }
 
 // decodes the lookup company API call into a list of tickers
-export async function decodeLookupCompany() {
-  const lookup = await getLookupCompany("AP");
-  // const parsedData: SecuritiesData = JSON.parse(optionsChain);
+export async function decodeLookupCompany(query: string) {
+  if (!query) {
+    console.error("Query is null or undefined");
+    return []; // or throw an error, or handle it as needed
+  }
+
+  console.log("decode query " + query);
+  const lookup = await getLookupCompany(query);
 
   const symbols: string[] = lookup.securities.security.map(
     (security: { symbol: any }) => security.symbol
@@ -87,6 +93,7 @@ const option: OptionExpiration = {
   stock: "GOOGL",
   expiration: "2024-03-22",
 };
+
 // decodes the options chain API call into a list of options
 export async function decodeOptionsData(filter: OptionExpiration) {
   const { stock, expiration } = filter;

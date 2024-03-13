@@ -12,16 +12,14 @@ import {
 } from "@/utils";
 
 export default async function Home({ searchParams }) {
-  console.log(searchParams.expiration);
-  console.log(searchParams.ticker);
   const optionsChain = await decodeOptionsData({
     stock: searchParams.ticker || "AAPL",
     expiration: searchParams.expiration || "2024-04-19",
   });
 
-  const lookupCompany = await getLookupCompany();
-  const lookup = await decodeLookupCompany();
-  const stockPrice = await decodeQuotes();
+  //const lookupCompany = await getLookupCompany();
+  // const lookup = await decodeLookupCompany();
+  const stockPrice = await decodeQuotes(searchParams.ticker || "AAPL");
   // const clock = await fetchClock();
 
   // console.log(decodeLookupCompany());
@@ -43,9 +41,7 @@ export default async function Home({ searchParams }) {
 
         <div className="home__filters">
           <SearchBar />
-          <div className="home__filter-container">
-            <CustomFilter title="ticker" />
-          </div>
+          <div className="home__filter-container"></div>
         </div>
       </div>
 
@@ -53,14 +49,13 @@ export default async function Home({ searchParams }) {
         <section>
           <div className="home__cars-wrapper">
             {optionsChain?.map((option: any) => (
-              <OptionCard option={option} stockPrice={parseInt(stockPrice)} />
+              <OptionCard option={option} stockPrice={parseFloat(stockPrice)} />
             ))}
           </div>
         </section>
       ) : (
         <div className="home__error-container">
           <h2 className="text-black text-xl font-bold">Oops, no results</h2>
-          <p>{lookupCompany?.message}</p>
         </div>
       )}
     </main>
