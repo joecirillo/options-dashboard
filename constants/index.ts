@@ -1,3 +1,5 @@
+import { getLookupCompany } from "@/utils";
+
 export const tickers = [
   "AAPL",
   "GOOGL",

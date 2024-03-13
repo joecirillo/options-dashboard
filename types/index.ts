@@ -15,6 +15,12 @@ export interface SearchTickerProps {
   setTicker: (ticker: string) => void;
 }
 
+export interface SearchExpirationProps {
+  expiration: string;
+  setExpiration: (ticker: string) => void;
+  ticker: string;
+}
+
 export interface Security {
   symbol: string;
   exchange: string;

@@ -1,6 +1,6 @@
 "use client";
 
-import React from "react";
+import React, { useEffect } from "react";
 import { SearchTickerProps } from "@/types";
 import { Combobox, Transition } from "@headlessui/react";
 import Image from "next/image";
@@ -11,14 +11,29 @@ import { decodeLookupCompany } from "@/utils";
 
 const SearchTicker = ({ ticker, setTicker }: SearchTickerProps) => {
   const [query, setQuery] = useState("");
+  const [tickers, setTickers] = useState<string[]>([]);
 
-  // const tickersAPI = await decodeLookupCompany();
-  // console.log("What is this: \n" + tickersAPI);
+  useEffect(() => {
+    if (query.length >= 2) {
+      console.log(query.length);
+      console.log(query);
+      async function fetchTickers() {
+        try {
+          const fetchedTickers = await decodeLookupCompany(query);
+          setTickers(fetchedTickers);
+        } catch (error) {
+          console.error("Error fetching tickers:", error);
+        }
+      }
+
+      fetchTickers();
+    }
+  }, [query]);
 
   const filteredTickers =
     query === ""
       ? tickers
-      : tickers.filter((item) =>
+      : tickers.filter((item: string) =>
           item
             .toLowerCase()
             .replace(/\s+/g, "")
@@ -57,7 +72,7 @@ const SearchTicker = ({ ticker, setTicker }: SearchTickerProps) => {
               className="mt-1 max-h-60 w-full overflow-auto rounded-md bg-white py-1 text-base shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none sm:text-sm"
               static
             >
-              {filteredTickers.map((item) => (
+              {filteredTickers.map((item: string) => (
                 <Combobox.Option
                   key={item}
                   className={({ active }) =>
