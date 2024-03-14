@@ -7,9 +7,10 @@ import React from "react";
 import { useState } from "react";
 import { SearchTickerSymbol } from ".";
 import SearchTicker from "./SearchTicker";
+import SearchExpiration from "./SearchExpiration";
 
 const SearchButton = ({ otherClasses }: { otherClasses: string }) => (
-  <button type="submit" className={`-ml-9 z-10 ${otherClasses}`}>
+  <button type="submit" className={`-ml-18 z-10 ${otherClasses}`}>
     <Image
       src={"/magnifying-glass.svg"}
       alt={"magnifying glass"}
@@ -21,7 +22,7 @@ const SearchButton = ({ otherClasses }: { otherClasses: string }) => (
 );
 
 const SearchBar = () => {
-  const [ticker, setTicker] = useState("");
+  const [ticker, setTicker] = useState("AAPL");
   const [expiration, setExpiration] = useState("");
   const router = useRouter();
 
@@ -58,28 +59,15 @@ const SearchBar = () => {
     <form className="searchbar" onSubmit={handleSearch}>
       <div className="searchbar__item">
         <SearchTicker ticker={ticker} setTicker={setTicker} />
-        <SearchButton otherClasses="sm:hidden" />
       </div>
       <div className="searchbar__item">
-        <Image
-          src="/timer.svg"
-          width={25}
-          height={25}
-          className="absolute w-[20px] h-[20px] ml-4"
-          alt="timer"
-        />
-        <input
-          type="text"
-          name="expiration"
-          value={expiration}
-          onChange={(e) => setExpiration(e.target.value)}
-          placeholder="Enter an expiration date"
-          className="searchbar__input"
-        />
-
-        <SearchButton otherClasses="sm:hidden" />
+        <SearchExpiration
+          expiration={expiration}
+          setExpiration={setExpiration}
+          ticker={ticker}
+        ></SearchExpiration>
+        <SearchButton otherClasses="max-sm:hidden" />
       </div>
-      <SearchButton otherClasses="max-sm:hidden" />
     </form>
   );
 };
