@@ -14,9 +14,9 @@ const SearchButton = ({ otherClasses }: { otherClasses: string }) => (
     <Image
       src={"/magnifying-glass.svg"}
       alt={"magnifying glass"}
-      width={20}
-      height={20}
-      className="object-contain"
+      width={30}
+      height={30}
+      className=""
     />
   </button>
 );
@@ -52,7 +52,7 @@ const SearchBar = () => {
       window.location.pathname
     }?${searchParams.toString()}`;
 
-    router.push(newPathname);
+    router.push(newPathname, { scroll: false });
   };
 
   return (

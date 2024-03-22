@@ -7,7 +7,7 @@ import Image from "next/image";
 import { useState, Fragment } from "react";
 import { tickers } from "@/constants";
 import dynamic from "next/dynamic";
-import { decodeLookupCompany } from "@/utils";
+import { lookupCompany } from "@/utils";
 
 const SearchTicker = ({ ticker, setTicker }: SearchTickerProps) => {
   const [query, setQuery] = useState("");
@@ -19,7 +19,7 @@ const SearchTicker = ({ ticker, setTicker }: SearchTickerProps) => {
       console.log(query);
       async function fetchTickers() {
         try {
-          const fetchedTickers = await decodeLookupCompany(query);
+          const fetchedTickers = await lookupCompany(query);
           setTickers(fetchedTickers);
         } catch (error) {
           console.error("Error fetching tickers:", error);

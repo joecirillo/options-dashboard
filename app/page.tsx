@@ -2,33 +2,19 @@ import { Banner, OptionCard } from "@/components";
 import Image from "next/image";
 import { SearchBar } from "@/components";
 import { CustomFilter } from "@/components";
-import { OptionExpiration } from "@/types";
-import {
-  decodeOptionsData,
-  decodeLookupCompany,
-  getLookupCompany,
-  getOptionsChain,
-  decodeQuotes,
-} from "@/utils";
+import { HomeProps, OptionExpiration, SearchProps } from "@/types";
+import { getOptionsData, lookupCompany, getQuotes, testAPI } from "@/utils";
 
-export default async function Home({ searchParams }) {
-  const optionsChain = await decodeOptionsData({
+export default async function Home({ searchParams }: HomeProps) {
+  const optionsChain = await getOptionsData({
     stock: searchParams.ticker || "AAPL",
     expiration: searchParams.expiration || "2024-04-19",
   });
 
-  //const lookupCompany = await getLookupCompany();
-  // const lookup = await decodeLookupCompany();
-  const stockPrice = await decodeQuotes(searchParams.ticker || "AAPL");
-  // const clock = await fetchClock();
-
-  // console.log(decodeLookupCompany());
+  const stockPrice = await getQuotes(searchParams.ticker || "AAPL");
 
   const isDataEmpty =
     typeof optionsChain != "object" || Object.keys(optionsChain).length === 0;
-
-  // console.log("Companies" + lookupCompany);
-  // console.log(clock);
 
   return (
     <main className="overflow-hidden">
