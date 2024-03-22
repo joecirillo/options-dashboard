@@ -49,7 +49,7 @@ const OptionCard = ({ option, stockPrice }: OptionCardProps) => {
       </div>
       <p className="mt-6">
         <span className="self-end text-[32px] font-extrabold">
-          ${last || ask}{" "}
+          ${last != null ? last.toFixed(2) : ask.toFixed(2)}{" "}
         </span>
         <span className="self-end text-[14px] font-medium">{option_type}</span>
       </p>

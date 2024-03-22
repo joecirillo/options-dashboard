@@ -1,55 +1,24 @@
 import { OptionExpiration } from "@/types";
 
-export async function getOptionsChain(filters: OptionExpiration) {
-  const { stock, expiration } = filters;
-  const headers = {
-    Authorization: "Bearer acI6GbqOGu4AkuBkpxb5vTAlw9bD",
-    Accept: "application/json",
-  };
+export const testAPI = () => {
+  console.log("Value: " + process.env.API_KEY);
+};
 
-  const response = await fetch(
-    `https://sandbox.tradier.com/v1/markets/options/chains?symbol=${stock}&expiration=${expiration}`,
-    { headers: headers }
-  );
-  const result = await response.json();
-
-  return result;
-}
-
-export async function getLookupCompany(keyword: string) {
-  const headers = {
-    Authorization: "Bearer acI6GbqOGu4AkuBkpxb5vTAlw9bD",
-    Accept: "application/json",
-  };
-
-  const response = await fetch(
-    `https://sandbox.tradier.com/v1/markets/lookup?q=${keyword}`,
-    { headers: headers }
-  );
-
-  const result = await response.json();
-
-  return result;
-}
+const testAPI2 = `Bearer ${process.env.API_KEY}`;
+console.log(testAPI2);
 
 export async function getQuotes(stock: string) {
   const headers = {
-    Authorization: "Bearer acI6GbqOGu4AkuBkpxb5vTAlw9bD",
+    Authorization: testAPI2,
     Accept: "application/json",
   };
-
+  console.log("Oh " + testAPI2);
   const response = await fetch(
     `https://sandbox.tradier.com/v1/markets/quotes?symbols=${stock}`,
     { headers: headers }
   );
 
-  const result = await response.json();
-
-  return result;
-}
-
-export async function decodeQuotes(stock: string) {
-  const company = await getQuotes(stock);
+  const company = await response.json();
 
   const quote: string = company.quotes.quote.last;
   console.log("quote " + quote);
@@ -57,14 +26,26 @@ export async function decodeQuotes(stock: string) {
 }
 
 // decodes the lookup company API call into a list of tickers
-export async function decodeLookupCompany(query: string) {
+export async function lookupCompany(query: string) {
+  console.log("Oh 2 " + testAPI2);
+  const headers = {
+    Authorization: "Bearer acI6GbqOGu4AkuBkpxb5vTAlw9bD",
+    Accept: "application/json",
+  };
+
+  const response = await fetch(
+    `https://sandbox.tradier.com/v1/markets/lookup?q=${query}`,
+    { headers: headers }
+  );
+
+  const lookup = await response.json();
+
   if (!query) {
     console.error("Query is null or undefined");
     return []; // or throw an error, or handle it as needed
   }
 
   console.log("decode query " + query);
-  const lookup = await getLookupCompany(query);
 
   const symbols: string[] = lookup.securities.security.map(
     (security: { symbol: any }) => security.symbol
@@ -74,10 +55,19 @@ export async function decodeLookupCompany(query: string) {
 }
 
 // decodes the options chain API call into a list of options
-export async function decodeOptionsData(filter: OptionExpiration) {
+export async function getOptionsData(filter: OptionExpiration) {
   const { stock, expiration } = filter;
+  const headers = {
+    Authorization: testAPI2,
+    Accept: "application/json",
+  };
 
-  const optionData = await getOptionsChain(filter);
+  const response = await fetch(
+    `https://sandbox.tradier.com/v1/markets/options/chains?symbol=${stock}&expiration=${expiration}`,
+    { headers: headers }
+  );
+  const optionData = await response.json();
+
   return optionData.options.option;
 }
 

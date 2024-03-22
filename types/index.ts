@@ -10,6 +10,15 @@ export interface CustomButtonProps {
   isDisabled?: boolean;
 }
 
+export interface SearchProps {
+  ticker: string;
+  expiration?: string;
+}
+
+export interface HomeProps {
+  searchParams: SearchProps;
+}
+
 export interface SearchTickerProps {
   ticker: string;
   setTicker: (ticker: string) => void;
