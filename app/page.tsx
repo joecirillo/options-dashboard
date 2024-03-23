@@ -3,7 +3,10 @@ import Image from "next/image";
 import { SearchBar } from "@/components";
 import { CustomFilter } from "@/components";
 import { HomeProps, OptionExpiration, SearchProps } from "@/types";
-import { getOptionsData, lookupCompany, getQuotes, testAPI } from "@/utils";
+import { getQuotes } from "@/utils/api/getQuotes";
+import { lookupCompany } from "@/utils/api/lookupCompany";
+import { getOptionsData } from "@/utils/api/getOptionsData";
+import { getExpirations } from "@/utils/api/getExpirations";
 
 export default async function Home({ searchParams }: HomeProps) {
   const optionsChain = await getOptionsData({
@@ -12,6 +15,7 @@ export default async function Home({ searchParams }: HomeProps) {
   });
 
   const stockPrice = await getQuotes(searchParams.ticker || "AAPL");
+  const expirationDates = await getExpirations(searchParams.ticker || "AAPL");
 
   const isDataEmpty =
     typeof optionsChain != "object" || Object.keys(optionsChain).length === 0;

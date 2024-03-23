@@ -1,6 +1,6 @@
 "use client";
 import { SearchExpirationProps } from "@/types";
-import { getExpirations } from "@/utils";
+import { getExpirations } from "@/utils/api/getExpirations";
 import { Listbox, Transition } from "@headlessui/react";
 import React, { Fragment, useEffect, useState } from "react";
 import Image from "next/image";
@@ -17,19 +17,20 @@ const SearchExpiration = ({
   }, []);
 
   useEffect(() => {
-    async function fetchTickers() {
-      console.log("Ticker: " + ticker);
+    async function fetchExpirations() {
       try {
-        const expirationDates = await getExpirations(ticker);
-        setExpirations(expirationDates);
-        console.log(expirations);
+        // Fetch data from the server-side API route with the actual ticker symbol
+        const response = await fetch(`/api/getExpirations?ticker=${ticker}`);
+        const data = await response.json();
+        setExpirations(data.expirations);
       } catch (error) {
-        console.error(`Error fetching ticker ${ticker}`, error);
+        console.error("Error fetching expirations:", error);
       }
     }
 
-    fetchTickers();
-  }, [ticker]);
+    // Call the fetchExpirations function when the component mounts
+    fetchExpirations();
+  }, [ticker]); // Include ticker in the dependency array to re-fetch when it changes
 
   return (
     <div className="w-fit">

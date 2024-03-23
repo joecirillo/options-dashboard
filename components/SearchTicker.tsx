@@ -7,31 +7,35 @@ import Image from "next/image";
 import { useState, Fragment } from "react";
 import { tickers } from "@/constants";
 import dynamic from "next/dynamic";
-import { lookupCompany } from "@/utils";
+import { lookupCompany } from "@/utils/api/lookupCompany";
 
 const SearchTicker = ({ ticker, setTicker }: SearchTickerProps) => {
   const [query, setQuery] = useState("");
+  console.log("This q: " + query);
   const [tickers, setTickers] = useState<string[]>([]);
 
   useEffect(() => {
+    console.log("This is the query length: " + query);
     if (query.length >= 2) {
-      console.log(query.length);
-      console.log(query);
-      async function fetchTickers() {
+      async function fetchCompanies() {
         try {
-          const fetchedTickers = await lookupCompany(query);
-          setTickers(fetchedTickers);
+          console.log("Query: " + query);
+          const response = await fetch(`/api/lookupCompany?query=${query}`);
+          const data = await response.json();
+          setTickers(data.companies);
         } catch (error) {
-          console.error("Error fetching tickers:", error);
+          console.error("Error fetching companies:", error);
         }
       }
 
-      fetchTickers();
+      fetchCompanies();
     }
   }, [query]);
 
+  console.log(query);
+  console.log(tickers);
   const filteredTickers =
-    query === ""
+    query === "" || tickers === undefined
       ? tickers
       : tickers.filter((item: string) =>
           item
