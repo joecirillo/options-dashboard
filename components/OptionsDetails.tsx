@@ -84,8 +84,11 @@ const OptionsDetails = ({ isOpen, closeModal, option }: CarDetailsProps) => {
                       expiration_type,
                       option_type,
                     }).map(([key, value]) => (
-                      <div className="flex justify-between mt-3 capitalize">
-                        <h3>{key.split("_").join(" ")}</h3>
+                      <div
+                        key={key}
+                        className="flex justify-between mt-3 capitalize"
+                      >
+                        <h3>{"Hi " + key.split("_").join(" ")}</h3>
                         <p>{value}</p>
                       </div>
                     ))}
