@@ -5,9 +5,6 @@ import { SearchTickerProps } from "@/types";
 import { Combobox, Transition } from "@headlessui/react";
 import Image from "next/image";
 import { useState, Fragment } from "react";
-import { tickers } from "@/constants";
-import dynamic from "next/dynamic";
-import { lookupCompany } from "@/utils/api/lookupCompany";
 
 const SearchTicker = ({ ticker, setTicker }: SearchTickerProps) => {
   const [query, setQuery] = useState("");

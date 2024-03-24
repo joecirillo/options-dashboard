@@ -88,7 +88,7 @@ const OptionsDetails = ({ isOpen, closeModal, option }: CarDetailsProps) => {
                         key={key}
                         className="flex justify-between mt-3 capitalize"
                       >
-                        <h3>{"Hi " + key.split("_").join(" ")}</h3>
+                        <h3>{key.split("_").join(" ")}</h3>
                         <p>{value}</p>
                       </div>
                     ))}
