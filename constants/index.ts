@@ -1,56 +1,51 @@
-import { getLookupCompany } from "@/utils";
+export const monthDictionary: { [key: string]: string } = {
+  "01": "January",
+  "02": "February",
+  "03": "March",
+  "04": "April",
+  "05": "May",
+  "06": "June",
+  "07": "July",
+  "08": "August",
+  "09": "September",
+  "10": "October",
+  "11": "November",
+  "12": "December",
+};
 
-export const tickers = [
-  "AAPL",
-  "GOOGL",
-  "MSFT",
-  "AMZN",
-  "FB",
-  "TSLA",
-  "NVDA",
-  "INTC",
-  "AMD",
-  "IBM",
-  "CSCO",
-  "PYPL",
-  "NFLX",
-  "ORCL",
-  "DIS",
-  "V",
-  "BA",
-  "GS",
-  "JPM",
-  "WMT",
-  // No repeated tickers in this list
-];
+export const daySuffix: { [key: string]: string } = {
+  "01": "st",
+  "02": "nd",
+  "03": "rd",
+  "04": "th",
+  "05": "th",
+  "06": "th",
+  "07": "th",
+  "08": "th",
+  "09": "th",
+};
 
-export const yearsOfProduction = [
-  { title: "Year", value: "" },
-  { title: "2015", value: "2015" },
-  { title: "2016", value: "2016" },
-  { title: "2017", value: "2017" },
-  { title: "2018", value: "2018" },
-  { title: "2019", value: "2019" },
-  { title: "2020", value: "2020" },
-  { title: "2021", value: "2021" },
-  { title: "2022", value: "2022" },
-  { title: "2023", value: "2023" },
-];
+export const reversedMonthDictionary: { [key: string]: string } = {
+  January: "01",
+  February: "02",
+  March: "03",
+  April: "04",
+  May: "05",
+  June: "06",
+  July: "07",
+  August: "08",
+  September: "09",
+  October: "10",
+  November: "11",
+  December: "12",
+};
 
-export const fuels = [
-  {
-    title: "Fuel",
-    value: "",
-  },
-  {
-    title: "Gas",
-    value: "Gas",
-  },
-  {
-    title: "Electricity",
-    value: "Electricity",
-  },
-];
+export const reversedDaySuffix: { [key: string]: string } = {
+  st: "01",
+  nd: "02",
+  rd: "03",
+  th: "04", // Assuming 4 as default, adjust as needed
+};
 
 export const footerLinks = [
   {

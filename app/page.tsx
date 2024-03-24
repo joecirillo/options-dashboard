@@ -39,7 +39,11 @@ export default async function Home({ searchParams }: HomeProps) {
         <section>
           <div className="home__cars-wrapper">
             {optionsChain?.map((option: any) => (
-              <OptionCard option={option} stockPrice={parseFloat(stockPrice)} />
+              <OptionCard
+                key={option}
+                option={option}
+                stockPrice={parseFloat(stockPrice)}
+              />
             ))}
           </div>
         </section>
