@@ -42,7 +42,7 @@ const SearchTicker = ({ ticker, setTicker }: SearchTickerProps) => {
         );
 
   return (
-    <div className="search-manufacturer">
+    <div className="search-tickers">
       <Combobox value={ticker} onChange={setTicker}>
         <div className="relative w-full">
           <Combobox.Button className="absolute top-[12px]">
@@ -56,7 +56,7 @@ const SearchTicker = ({ ticker, setTicker }: SearchTickerProps) => {
           </Combobox.Button>
 
           <Combobox.Input
-            className="search-manufacturer__input"
+            className="search-tickers__input"
             placeholder="Enter a ticker symbol..."
             displayValue={(ticker: string) => ticker}
             onChange={(e) => setQuery(e.target.value)}
@@ -77,7 +77,7 @@ const SearchTicker = ({ ticker, setTicker }: SearchTickerProps) => {
                 <Combobox.Option
                   key={item}
                   className={({ active }) =>
-                    `relative search-manufacturer__option ${
+                    `relative search-tickers__option ${
                       active ? "bg-primary-green text-white" : "text-gray-900"
                     }`
                   }

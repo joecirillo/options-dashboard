@@ -43,9 +43,9 @@ const OptionCard = ({ option, stockPrice }: OptionCardProps) => {
   const moneyness = isInTheMoney ? "ITM" : isAtTheMoney ? "ATM" : "OTM";
 
   return (
-    <div className="car-card group">
-      <div className="car-card__content">
-        <h2 className="car-card__content-title">{description}</h2>
+    <div className="option-card group">
+      <div className="option-card__content">
+        <h2 className="option-card__content-title">{description}</h2>
       </div>
       <p className="mt-6">
         <span className="self-end text-[32px] font-extrabold">
@@ -77,13 +77,13 @@ const OptionCard = ({ option, stockPrice }: OptionCardProps) => {
             Moneyness
             <p className="text-[14px] leading-[17px]">{moneyness}</p>
           </div>
-          <div className="car-card__icon">
+          <div className="option-card__icon">
             Current Underlying Price
             <p className="text-[14px] leading-[17px]">
               ${stockPrice.toFixed(2)}
             </p>
           </div>
-          <div className="car-card__icon">
+          <div className="option-card__icon">
             Current Payoff
             <p className="text-[14px] leading-[17px]">
               {option_type === "call"
@@ -107,7 +107,7 @@ const OptionCard = ({ option, stockPrice }: OptionCardProps) => {
           </div>
         </div>
 
-        <div className="car-card__btn-container">
+        <div className="option-card__btn-container">
           <CustomButton
             title="More Details"
             containerStyles="w-full py-[16px] rounded-full mt-10 bg-black-100"
