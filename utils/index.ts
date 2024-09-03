@@ -35,3 +35,17 @@ export function reverseDate(dateString: string): string {
 
   return year + "-" + month + "-" + day;
 }
+
+// // Utility function to convert date format from YYYY-MM-DD to MM/DD/YYYY
+export function convertDateFormat(dateString: any) {
+  if (!dateString) return "";
+  const [year, month, day] = dateString.split("-");
+  return `${month}/${day}/${year}`;
+}
+
+// Utility function to convert date format from MM/DD/YYYY to YYYY-MM-DD
+export function reverseDateFormat(dateString: any) {
+  if (!dateString) return "";
+  const [month, day, year] = dateString.split("/");
+  return `${year}-${month}-${day}`;
+}

@@ -77,7 +77,7 @@
   @apply flex justify-start flex-wrap items-center gap-2;
 }
 
-.home__cars-wrapper {
+.home__options-wrapper {
   @apply grid 2xl:grid-cols-4 xl:grid-cols-3 md:grid-cols-2 grid-cols-1 w-full gap-8 pt-14;
 }
 

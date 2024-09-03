@@ -11,7 +11,7 @@ import { getExpirations } from "@/utils/api/getExpirations";
 export default async function Home({ searchParams }: HomeProps) {
   const optionsChain = await getOptionsData({
     stock: searchParams.ticker || "AAPL",
-    expiration: searchParams.expiration || "2024-04-19",
+    expiration: searchParams.expiration || "2024-08-16",
   });
 
   const stockPrice = await getQuotes(searchParams.ticker || "AAPL");
@@ -26,7 +26,10 @@ export default async function Home({ searchParams }: HomeProps) {
       <div className="mt-12 padding-x padding-y max-width" id="discover">
         <div className="home__text-container">
           <h1 className="text-4xl font-extrabold">Options Catalogue</h1>
-          <p>Explore options and their prices</p>
+          <p>
+            Explore options and their prices by searching for a stock and its
+            expiration date below.
+          </p>
         </div>
 
         <div className="home__filters">
@@ -37,7 +40,7 @@ export default async function Home({ searchParams }: HomeProps) {
 
       {!isDataEmpty ? (
         <section>
-          <div className="home__cars-wrapper">
+          <div className="home__options-wrapper">
             {optionsChain?.map((option: any) => (
               <OptionCard
                 key={option}
