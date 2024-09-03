@@ -4,7 +4,12 @@ import { getExpirations } from "@/utils/api/getExpirations";
 import { Listbox, Transition } from "@headlessui/react";
 import React, { Fragment, useEffect, useState } from "react";
 import Image from "next/image";
-import { convertDate, reverseDate } from "@/utils";
+import {
+  convertDate,
+  convertDateFormat,
+  reverseDate,
+  reverseDateFormat,
+} from "@/utils";
 
 const SearchExpiration = ({
   expiration,
@@ -14,7 +19,7 @@ const SearchExpiration = ({
   const [expirations, setExpirations] = useState<string[]>([]);
 
   useEffect(() => {
-    setExpiration("Select an expiration...");
+    setExpiration("");
   }, []);
 
   useEffect(() => {
@@ -35,10 +40,15 @@ const SearchExpiration = ({
 
   return (
     <div className="w-fit">
-      <Listbox value={expiration} onChange={(e) => setExpiration(e)}>
+      <Listbox
+        value={convertDateFormat(expiration)}
+        onChange={(e) => setExpiration(reverseDateFormat(e))}
+      >
         <div className="relative w-fit z-10">
           <Listbox.Button className="custom-filter__btn">
-            <span className="block truncate">{expiration}</span>
+            <span className="block truncate">
+              {convertDateFormat(expiration)}
+            </span>
             <Image
               src="/dropdown.png"
               width={25}
@@ -66,7 +76,7 @@ const SearchExpiration = ({
                             : "text-gray-900"
                         }`
                       }
-                      value={expirationDate}
+                      value={convertDateFormat(expirationDate)}
                     >
                       {({ selected }) => (
                         <>
@@ -75,7 +85,7 @@ const SearchExpiration = ({
                               selected ? "font-medium" : "font-normal"
                             }`}
                           >
-                            {expirationDate}
+                            {convertDateFormat(expirationDate)}
                           </span>
                         </>
                       )}
